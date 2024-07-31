@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{%block title%} Лента записей {%endblock%}
+{%block content%}
+      <div class="container py-5">
+        <h1>Лента записей</h1>               
+        <!-- Перебираем в цикле все посты -->
+        <hr>
+        <article>
+          <ul>
+            {% for post in posts %}
+            {% if forloop.counter > 1 %}
+            <hr>
+            {% endif %}
+            <li>
+              {{post.location}}             
+            </li>
+            <li>
+              {{post.date}}
+            </li>
+            <li>
+              Категория: <a href="{% url 'blog:category' post.category %}"> {{post.category}}</a>
+            </li>
+          </ul>          
+          <!-- Первые 10 слов -->
+          <p>
+           {{post.text|truncatewords:10}}
+          </p>
+          <a href="{% url 'blog:detail' post.id %}">Читать полный текст</a>
+        {%endfor%}
+        </article>             
+      </div>
+{%endblock%}
+
