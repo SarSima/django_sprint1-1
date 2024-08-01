@@ -45,6 +45,8 @@ posts = [
     },
 ]
 
+id_posts = {post['id']: post for post in posts}
+
 
 def index(request):
     template = 'blog/index.html'
@@ -55,9 +57,9 @@ def index(request):
 def post_detail(request, id):
     template = 'blog/detail.html'
     try:
-        context = {'post': posts[id]}
+        context = {'post': id_posts[id]}
         return render(request, template, context)
-    except IndexError:
+    except Exception:
         raise Http404('Страница не найдена!')
 
 
