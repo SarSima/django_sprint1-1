@@ -48,16 +48,17 @@ posts = [
 
 def index(request):
     template = 'blog/index.html'
-    context = {'posts': posts}
+    context = {'posts': posts[::-1]}
     return render(request, template, context)
 
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    if id not in posts['id'].values():
+    try:
+        context = {'post': posts[id]}
+        return render(request, template, context)
+    except IndexError:
         raise Http404('Страница не найдена!')
-    context = {'detail_posts': posts[id]}
-    return render(request, template, context)
 
 
 def category_posts(request, category_slug):
