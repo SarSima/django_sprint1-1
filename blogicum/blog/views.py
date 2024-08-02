@@ -59,7 +59,7 @@ def post_detail(request, id):
     try:
         context = {'post': id_posts[id]}
         return render(request, template, context)
-    except Exception:
+    except KeyError:
         raise Http404('Страница не найдена!')
 
 
